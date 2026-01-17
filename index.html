@@ -1,0 +1,874 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Website Pertama</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated Stars Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 60px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 50px 50px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 10px, #fff, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 200px 200px;
+      animation: twinkle 5s ease-in-out infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Moon */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 50px;
+      right: 80px;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle at 35% 35%, #fff9e6, #fffacd 20%, #ffd700 60%, #daa520);
+      border-radius: 50%;
+      box-shadow: 0 0 60px rgba(255, 250, 205, 0.5), inset -10px -10px 20px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+      animation: moonWalk 30s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes moonWalk {
+      0% {
+        right: 80px;
+        top: 50px;
+      }
+      25% {
+        right: 50px;
+        top: 100px;
+      }
+      50% {
+        right: 30px;
+        top: 150px;
+      }
+      75% {
+        right: 50px;
+        top: 100px;
+      }
+      100% {
+        right: 80px;
+        top: 50px;
+      }
+    }
+
+    /* Clouds moving */
+    .cloud {
+      position: fixed;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .cloud-1 {
+      width: 200px;
+      height: 60px;
+      top: 100px;
+      left: 0;
+      animation: cloudMove 25s linear infinite;
+    }
+
+    .cloud-2 {
+      width: 150px;
+      height: 50px;
+      top: 250px;
+      left: 0;
+      animation: cloudMove 30s linear infinite;
+      animation-delay: 5s;
+    }
+
+    .cloud-3 {
+      width: 180px;
+      height: 55px;
+      top: 400px;
+      left: 0;
+      animation: cloudMove 35s linear infinite;
+      animation-delay: 10s;
+    }
+
+    @keyframes cloudMove {
+      0% {
+        left: -200px;
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        left: 100%;
+        opacity: 0;
+      }
+    }
+
+    /* Login Page Styles */
+    #loginPage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      background: rgba(15, 12, 41, 0.95);
+      backdrop-filter: blur(5px);
+    }
+
+    #loginPage.hidden {
+      display: none;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      max-width: 400px;
+      width: 90%;
+      animation: slideIn 0.8s ease-out;
+    }
+
+    .login-container h1 {
+      color: #333;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .login-container p {
+      color: #666;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1em;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #333;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 1em;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      color: #ff4444;
+      font-size: 0.9em;
+      margin-top: 5px;
+      display: none;
+      text-align: center;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .container {
+      text-align: center;
+      z-index: 10;
+      position: relative;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 60px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 3.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.5); }
+      50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.8); }
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.3em;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Navigation Bar */
+    nav {
+      background: rgba(15, 12, 41, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      display: inline-block;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    nav a:hover::before {
+      width: 100%;
+    }
+
+    /* Main Content Wrapper */
+    .content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Section Pages */
+    .section {
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .logout-btn {
+      background: #ff4444 !important;
+    }
+
+    .logout-btn:hover {
+      box-shadow: 0 8px 20px rgba(255, 68, 68, 0.4) !important;
+    }
+
+    /* Finance Section Styles */
+    .finance-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      max-width: 900px;
+      width: 100%;
+      color: #333;
+    }
+
+    .finance-container h1 {
+      color: #333 !important;
+      text-shadow: none !important;
+      animation: none !important;
+      margin-bottom: 30px;
+    }
+
+    .finance-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .finance-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+    }
+
+    .finance-card h3 {
+      font-size: 0.9em;
+      opacity: 0.9;
+      margin-bottom: 10px;
+    }
+
+    .finance-card .amount {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .finance-form {
+      background: rgba(240, 240, 240, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .finance-form h3 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr auto;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      font-size: 0.9em;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 0.95em;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .add-btn {
+      padding: 10px 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      align-self: flex-end;
+    }
+
+    .add-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .finance-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .finance-table thead {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .finance-table th {
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .finance-table td {
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .finance-table tbody tr {
+      transition: all 0.3s ease;
+    }
+
+    .finance-table tbody tr:hover {
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .income {
+      color: #4caf50;
+      font-weight: 600;
+    }
+
+    .expense {
+      color: #ff4444;
+      font-weight: 600;
+    }
+
+    .delete-btn {
+      background: #ff4444;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: all 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      background: #cc0000;
+      transform: scale(1.05);
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #999;
+      padding: 40px 20px;
+      font-size: 1.1em;
+    }
+
+    .summary-section {
+      background: rgba(240, 240, 240, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .summary-section h3 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 1.1em;
+      padding-top: 10px;
+      border-top: 2px solid #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+
+  <!-- Login Page -->
+  <div id="loginPage">
+    <div class="login-container">
+      <h1>🔐 Login</h1>
+      <p>Masukkan email Anda untuk melanjutkan</p>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="email">📧 Email</label>
+          <input type="email" id="email" placeholder="nama@email.com" required>
+        </div>
+        <div class="error-message" id="errorMessage"></div>
+        <button type="submit" class="login-btn">Masuk</button>
+      </form>
+    </div>
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="#" onclick="showSection('home')">🏠 Home</a></li>
+      <li><a href="#" onclick="showSection('about')">👤 Tentang</a></li>
+      <li><a href="#" onclick="showSection('services')">⚙️ Layanan</a></li>
+      <li><a href="#" onclick="showSection('finance')">💰 Keuangan</a></li>
+      <li><a href="#" onclick="showSection('contact')">📧 Kontak</a></li>
+      <li><a href="#" onclick="logout()" class="logout-btn">🚪 Keluar</a></li>
+    </ul>
+  </nav>
+
+  <div class="content">
+    <!-- Home Section -->
+    <div id="home" class="section active">
+      <div class="container">
+        <h1>Halo Bos 🔥</h1>
+        <p>VS Code sudah jalan dengan benar</p>
+        <p id="userEmail" style="margin-top: 20px; font-size: 1em;"></p>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="section">
+      <div class="container">
+        <h1>Tentang Kami</h1>
+        <p>Ini adalah website pertama saya yang dibuat dengan HTML, CSS, dan JavaScript.</p>
+      </div>
+    </div>
+
+    <!-- Services Section -->
+    <div id="services" class="section">
+      <div class="container">
+        <h1>Layanan Kami</h1>
+        <p>Kami menyediakan berbagai layanan web development yang berkualitas.</p>
+      </div>
+    </div>
+
+    <!-- Finance Section -->
+    <div id="finance" class="section">
+      <div class="finance-container">
+        <h1>💰 Data Keuangan</h1>
+        
+        <div class="finance-header">
+          <div class="finance-card">
+            <h3>💵 Total Pemasukan</h3>
+            <div class="amount" id="totalIncome">Rp 0</div>
+          </div>
+          <div class="finance-card">
+            <h3>💸 Total Pengeluaran</h3>
+            <div class="amount" id="totalExpense">Rp 0</div>
+          </div>
+        </div>
+
+        <div class="finance-form">
+          <h3>Tambah Transaksi</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tanggal</label>
+              <input type="date" id="financeDate">
+            </div>
+            <div class="form-group">
+              <label>Deskripsi</label>
+              <input type="text" id="financeDescription" placeholder="Contoh: Gaji, Makan, dll">
+            </div>
+            <div class="form-group">
+              <label>Jumlah</label>
+              <input type="number" id="financeAmount" placeholder="Rp" min="0">
+            </div>
+            <div class="form-group">
+              <label>Tipe</label>
+              <select id="financeType">
+                <option value="income">Pemasukan</option>
+                <option value="expense">Pengeluaran</option>
+              </select>
+            </div>
+            <button class="add-btn" onclick="addFinance()">➕ Tambah</button>
+          </div>
+        </div>
+
+        <table class="finance-table">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Deskripsi</th>
+              <th>Jumlah</th>
+              <th>Tipe</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="financeTableBody">
+            <tr>
+              <td colspan="5" class="empty-message">📊 Belum ada data transaksi</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="summary-section">
+          <h3>📈 Ringkasan Keuangan</h3>
+          <div class="summary-item">
+            <span>Total Pemasukan:</span>
+            <span class="income" id="summaryIncome">Rp 0</span>
+          </div>
+          <div class="summary-item">
+            <span>Total Pengeluaran:</span>
+            <span class="expense" id="summaryExpense">Rp 0</span>
+          </div>
+          <div class="summary-item">
+            <span>Saldo:</span>
+            <span id="balance" style="color: #333;">Rp 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="section">
+      <div class="container">
+        <h1>Hubungi Kami</h1>
+        <p>Email: info@website.com<br>WhatsApp: +62 8xx xxxx xxxx</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Finance Data Management
+    let financeData = JSON.parse(localStorage.getItem('financeData')) || [];
+
+    function addFinance() {
+      const date = document.getElementById('financeDate').value;
+      const description = document.getElementById('financeDescription').value;
+      const amount = parseFloat(document.getElementById('financeAmount').value);
+      const type = document.getElementById('financeType').value;
+
+      // Validasi
+      if (!date || !description || !amount) {
+        alert('⚠️ Semua field harus diisi!');
+        return;
+      }
+
+      // Tambah data
+      const transaction = {
+        id: Date.now(),
+        date,
+        description,
+        amount,
+        type
+      };
+
+      financeData.push(transaction);
+      localStorage.setItem('financeData', JSON.stringify(financeData));
+
+      // Reset form
+      document.getElementById('financeDate').value = '';
+      document.getElementById('financeDescription').value = '';
+      document.getElementById('financeAmount').value = '';
+
+      updateFinanceDisplay();
+    }
+
+    function deleteFinance(id) {
+      if (confirm('Yakin ingin menghapus transaksi ini?')) {
+        financeData = financeData.filter(item => item.id !== id);
+        localStorage.setItem('financeData', JSON.stringify(financeData));
+        updateFinanceDisplay();
+      }
+    }
+
+    function updateFinanceDisplay() {
+      const tableBody = document.getElementById('financeTableBody');
+      
+      if (financeData.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" class="empty-message">📊 Belum ada data transaksi</td></tr>';
+      } else {
+        tableBody.innerHTML = financeData.sort((a, b) => new Date(b.date) - new Date(a.date))
+          .map(item => `
+            <tr>
+              <td>${new Date(item.date).toLocaleDateString('id-ID')}</td>
+              <td>${item.description}</td>
+              <td>Rp ${item.amount.toLocaleString('id-ID')}</td>
+              <td>
+                <span class="${item.type === 'income' ? 'income' : 'expense'}">
+                  ${item.type === 'income' ? '✅ Pemasukan' : '❌ Pengeluaran'}
+                </span>
+              </td>
+              <td>
+                <button class="delete-btn" onclick="deleteFinance(${item.id})">🗑️ Hapus</button>
+              </td>
+            </tr>
+          `).join('');
+      }
+
+      // Update total
+      const totalIncome = financeData
+        .filter(item => item.type === 'income')
+        .reduce((sum, item) => sum + item.amount, 0);
+
+      const totalExpense = financeData
+        .filter(item => item.type === 'expense')
+        .reduce((sum, item) => sum + item.amount, 0);
+
+      const balance = totalIncome - totalExpense;
+
+      document.getElementById('totalIncome').innerText = 'Rp ' + totalIncome.toLocaleString('id-ID');
+      document.getElementById('totalExpense').innerText = 'Rp ' + totalExpense.toLocaleString('id-ID');
+      document.getElementById('summaryIncome').innerText = 'Rp ' + totalIncome.toLocaleString('id-ID');
+      document.getElementById('summaryExpense').innerText = 'Rp ' + totalExpense.toLocaleString('id-ID');
+      document.getElementById('balance').innerText = 'Rp ' + balance.toLocaleString('id-ID');
+      document.getElementById('balance').style.color = balance >= 0 ? '#4caf50' : '#ff4444';
+    }
+
+    // Check if user is logged in
+    window.addEventListener('load', function() {
+      const userEmail = localStorage.getItem('userEmail');
+      if (!userEmail) {
+        document.getElementById('loginPage').classList.remove('hidden');
+      } else {
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('userEmail').innerText = '👤 Selamat datang, ' + userEmail;
+      }
+      updateFinanceDisplay();
+      
+      // Set tanggal hari ini
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('financeDate').value = today;
+    });
+
+    function handleLogin(event) {
+      event.preventDefault();
+      const emailInput = document.getElementById('email');
+      const email = emailInput.value;
+      const errorMessage = document.getElementById('errorMessage');
+
+      // Validasi email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        errorMessage.innerText = '❌ Email tidak valid!';
+        errorMessage.classList.add('show');
+        return;
+      }
+
+      // Simpan email ke localStorage
+      localStorage.setItem('userEmail', email);
+      
+      // Sembunyikan login page
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('userEmail').innerText = '👤 Selamat datang, ' + email;
+      
+      // Reset form
+      emailInput.value = '';
+      errorMessage.classList.remove('show');
+    }
+
+    function logout() {
+      localStorage.removeItem('userEmail');
+      document.getElementById('loginPage').classList.remove('hidden');
+      document.getElementById('email').value = '';
+      document.getElementById('userEmail').innerText = '';
+    }
+
+    function showSection(sectionId) {
+      // Sembunyikan semua section
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // Tampilkan section yang dipilih
+      document.getElementById(sectionId).classList.add('active');
+    }
+  </script>
+</body>
+</html>
